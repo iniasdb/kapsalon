@@ -63,6 +63,10 @@ public class Afspraak {
 		return this.info;
 	}
 	
+	public String getGegevens() {
+		return bewoner.getNaam() + " " + String.valueOf(date) + " " +  String.valueOf(uur) + " " +  wat + " " +  String.valueOf(freq) + " " +  info;
+	}
+	
 	private Bewoner bewoner;
 	private LocalDate date;
 	private LocalTime uur;

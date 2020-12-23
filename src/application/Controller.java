@@ -1,21 +1,34 @@
 package application;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.TemporalAdjuster;
 import java.util.ArrayList;
+import java.util.Scanner;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class Controller {
 	
@@ -29,13 +42,20 @@ public class Controller {
 	public ListView<Afspraak> afspraakLV;
 	public DatePicker dateInput;
 	public CheckBox uurCheckBox;
+	public MenuItem export, createBewoner, exit, delete, deleteAll;
+	public ContextMenu contextMenu;
 	
 	String[] watArray = {"Brush", "MP", "Knippen", "Perm", "Kleur", "Meshen"};
-	ArrayList<Bewoner> bewoners = new ArrayList<Bewoner>();
-	ArrayList<Afspraak> afspraken = new ArrayList<Afspraak>();
+	static ArrayList<Bewoner> bewoners = new ArrayList<Bewoner>();
+	static ArrayList<Afspraak> afspraken = new ArrayList<Afspraak>();
+	Scanner scanner;
 
 	public void initialize() {
 		
+		leesBewoners();
+		leesAfspraken();
+		
+		scanner.close();
 		//choicebox initialisations
 		weekCB.setValue("week 1");
 		for (int i = 1; i <= 52; i++) {
@@ -63,10 +83,7 @@ public class Controller {
 		
 		//disable editing of info textarea
 		infoTA.setEditable(false);
-		
-		//add bewoner verwijderen
-		bewoners.add(new Bewoner("Jos", 02, 1, true, "Maandag", false, true, "0488329303"));
-		
+				
 		//bewoner combobox cellfactory
 		bewonerCB.setCellFactory(param -> new ListCell<Bewoner>() {
 		    @Override
@@ -134,6 +151,151 @@ public class Controller {
 //			
 //		});
 		
+		export.setOnAction(e -> {
+			System.out.println("export");
+		});
+		
+		createBewoner.setOnAction(e -> {
+			try {
+				Parent root = FXMLLoader.load(getClass().getResource("build2.fxml"));
+				Stage stage = new Stage();
+				stage.setScene(new Scene(root));
+				stage.setTitle("Bewoner aanmaken");
+				stage.show();
+				
+				stage.setOnCloseRequest(Listener -> updateBewoners());
+				
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		});
+		
+		exit.setOnAction(e -> {
+			try {
+				exit();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		});
+		
+        afspraakLV.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+        	 
+            @Override
+            public void handle(ContextMenuEvent event) {
+ 
+                contextMenu.show(afspraakLV, event.getScreenX(), event.getScreenY());
+            }
+        });
+		
+		delete.setOnAction(e -> {
+			
+			Afspraak toDelete = afspraakLV.getSelectionModel().getSelectedItem();
+			afspraken.remove(toDelete);
+			
+		});
+		
+		deleteAll.setOnAction(e -> {
+
+			Afspraak selected = afspraakLV.getSelectionModel().getSelectedItem();
+			ArrayList<Afspraak> toDelete = new ArrayList<Afspraak>();
+			
+			Bewoner b = selected.getBewoner();
+			LocalDate date = selected.getDate();
+			String wat = selected.getWat();
+						
+			try {
+			for (int i = 0; i < afspraken.size(); i++) {
+				if (afspraken.get(i).getBewoner().equals(b) && afspraken.get(i).getWat().equals(wat) && afspraken.get(i).getDate().compareTo(date) >= 0) {
+					toDelete.add(afspraken.get(i));
+				}
+			}
+			
+			for (int i = 0; i < toDelete.size(); i++) {
+				afspraken.remove(toDelete.get(i));
+			}
+			
+			} catch (Exception el) {
+				el.printStackTrace();
+			}
+		});
+	}
+	
+	public void leesBewoners() {
+		try {
+			scanner = new Scanner(new File("C:/kapsalon/bewoners.txt"));
+			while (scanner.hasNext()) {
+				bewoners.add(new Bewoner(scanner.next(), scanner.nextInt(), scanner.nextInt(), scanner.nextBoolean(), scanner.next(), scanner.nextBoolean(), scanner.nextBoolean(), scanner.next()));
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void leesAfspraken() {
+		try {
+			scanner = new Scanner(new File("C:/kapsalon/afspraken.txt"));
+			System.out.println("ja");
+			
+			while (scanner.hasNext()) {
+				String naam = scanner.next();
+				Bewoner bewoner = null;
+				
+				for (Bewoner b : bewoners) {
+					if (b.getNaam().equals(naam)) {
+						bewoner = b;
+					}
+				}
+				
+				String datumStr = scanner.next();
+				int jaar = Integer.valueOf(datumStr.substring(0, 4));
+				int maand = Integer.valueOf(datumStr.substring(5, 7));
+				int dag = Integer.valueOf(datumStr.substring(8, 10));
+				
+				String timeStr = scanner.next();
+				LocalTime time;
+				
+				if (timeStr.equals("null")) {
+					time = null;
+				} else {
+					int uur  = Integer.valueOf(timeStr.substring(0, 2));
+					int min = Integer.valueOf(timeStr.substring(3));
+					time = LocalTime.of(uur, min);
+				}
+				
+				String wat = scanner.next();
+				int freq = Integer.valueOf(scanner.next());
+				
+				String info = scanner.next();
+				
+				afspraken.add(new Afspraak(bewoner, LocalDate.of(jaar, maand, dag), time, wat, freq, info));
+			}
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void exit() throws IOException {
+		try {
+			System.out.println("closing");
+			Writer bewonerWriter = new Writer("C:/kapsalon/bewoners.txt");
+			Writer afspraakWriter = new Writer("C:/kapsalon/afspraken.txt");
+			
+			for (int i = 0; i < bewoners.size(); i++) {
+				bewonerWriter.write(bewoners.get(i).getGegevens());
+			}
+			
+			for (int i = 0; i < afspraken.size(); i++) {
+				afspraakWriter.write(afspraken.get(i).getGegevens());
+			}
+			bewonerWriter.close();
+			afspraakWriter.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		Platform.exit();
+		System.exit(0);
 	}
 	
 	public void filter(ActionEvent e) {
@@ -155,6 +317,10 @@ public class Controller {
 	
 	public void afspraakMaken(ActionEvent e) {
 		
+		for (int i = 0; i < bewoners.size(); i++) {
+			System.out.println(bewoners.get(i));
+		}
+		
 		if (checkInput()) {
 			
 			Bewoner bewoner = bewonerCB.getValue();
@@ -172,7 +338,15 @@ public class Controller {
 			}
 			String wat = watCB.getValue();
 			int freq = freqCB.getValue();
-			String info = extraInfo.getText();
+			String info;
+			System.out.println(extraInfo.getText());
+			if (extraInfo.getText().equals("")) {
+				System.out.println("ja");
+				info = "null";
+			} else {
+				System.out.println("nee");
+				info = extraInfo.getText();
+			}
 						
 			nextAppointements(date, new Afspraak(bewoner, date, time, wat, freq, info));
 			
@@ -238,6 +412,10 @@ public class Controller {
 			int freq = selected.getFreq();
 			String info = selected.getInfo();
 			
+			if (info.equals("null")) {
+				info = "";
+			}
+			
 			bewonerLabel.setText(bewonerNaam);
 			datumLabel.setText(date.toString());
 			if (time!= null) {
@@ -249,12 +427,17 @@ public class Controller {
 			freqLabel.setText(Integer.toString(freq));
 			infoTA.setText(info);
 			
-			//debug
-			//check if day is in right week
-			System.out.println(selected.getDate().getDayOfYear());
-			System.out.println(Math.ceil((double)selected.getDate().getDayOfYear()/7));
 		} catch (Exception e) {
 		}
 	}
+	
+	
+	public void updateBewoners() {
+		bewonerCB.getItems().clear();
+		for (int i = 0; i < bewoners.size(); i++) {
+			bewonerCB.getItems().add(bewoners.get(i));
+		}
+	}
+	
 	
 }

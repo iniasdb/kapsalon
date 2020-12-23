@@ -4,6 +4,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -22,17 +23,9 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+                  <MenuItem fx:id="export" mnemonicParsing="false" text="Exporteren" />
+                  <MenuItem fx:id="createBewoner" mnemonicParsing="false" text="Bewoner aanmaken" />
+              <MenuItem fx:id="exit" mnemonicParsing="false" text="Exit" />
             </items>
           </Menu>
         </menus>
@@ -66,7 +59,15 @@
       </Label>
       <Label layoutX="261.0" layoutY="83.0" text="Week" />
       <ChoiceBox fx:id="weekCB" layoutX="306.0" layoutY="79.0" prefHeight="25.0" prefWidth="108.0" />
-      <ListView fx:id="afspraakLV" layoutX="261.0" layoutY="108.0" prefHeight="368.0" prefWidth="245.0" />
+      <ListView fx:id="afspraakLV" layoutX="261.0" layoutY="108.0" prefHeight="368.0" prefWidth="245.0">
+         <contextMenu>
+            <ContextMenu fx:id="contextMenu">
+              <items>
+                <MenuItem fx:id="delete" mnemonicParsing="false" text="Verwijder" />
+				<MenuItem fx:id="deleteAll" mnemonicParsing="false" text="Verwijder alle volgenden" />
+              </items>
+            </ContextMenu>
+         </contextMenu></ListView>
       <Separator layoutX="512.0" layoutY="11.0" orientation="VERTICAL" prefHeight="471.0" prefWidth="6.0" />
       <Label layoutX="572.0" layoutY="34.0" text="Afspraak maken">
          <font>

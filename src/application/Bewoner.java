@@ -78,6 +78,10 @@ public class Bewoner {
 		return this.tel;
 	}
 	
+	public String getGegevens() {
+		return naam + " " + String.valueOf(kamer) + " " + String.valueOf(afdeling) + " " + String.valueOf(bad) + " " + baddag + " " + String.valueOf(flat) + " " + String.valueOf(ophalen) + " " + tel;
+	}
+	
 	private String naam;
 	private int kamer;
 	private int afdeling;

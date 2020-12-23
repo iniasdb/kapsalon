@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="329.0" prefWidth="410.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="application.Controller2">
+   <children>
+      <ListView fx:id="bewonerLV" layoutX="7.0" layoutY="10.0" prefHeight="314.0" prefWidth="200.0" />
+      <Label layoutX="229.0" layoutY="10.0" text="Bewoner toevoegen">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="215.0" layoutY="48.0" text="Naam: " />
+      <TextField fx:id="naamTF" layoutX="276.0" layoutY="44.0" prefHeight="25.0" prefWidth="126.0" />
+      <Label layoutX="215.0" layoutY="94.0" text="kamernr: " />
+      <TextField fx:id="kamerNrTF" layoutX="276.0" layoutY="90.0" prefHeight="25.0" prefWidth="126.0" />
+      <CheckBox fx:id="badCB" layoutX="214.0" layoutY="137.0" mnemonicParsing="false" text="Bad" />
+      <Label layoutX="213.0" layoutY="182.0" text="Baddag:  " />
+      <ChoiceBox fx:id="badDagCB" layoutX="276.0" layoutY="178.0" prefHeight="25.0" prefWidth="126.0" />
+      <CheckBox fx:id="flatCB" layoutX="276.0" layoutY="137.0" mnemonicParsing="false" text="Flat" />
+      <CheckBox fx:id="ophalenCB" layoutX="336.0" layoutY="137.0" mnemonicParsing="false" text="Ophalen" />
+      <Label layoutX="215.0" layoutY="228.0" text="Telefoonnr: " />
+      <TextField fx:id="telTF" layoutX="279.0" layoutY="224.0" prefHeight="25.0" prefWidth="126.0" />
+      <Button onAction="#add" layoutX="268.0" layoutY="273.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="136.0" text="Bewoner aanmaken" />
+   </children>
+</AnchorPane>

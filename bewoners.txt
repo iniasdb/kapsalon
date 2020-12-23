@@ -1,0 +1,4 @@
+Jos 302 3 true Maandag false false 0483029380
+Bob 202 2 true Maandag false true 0483029380
+Jef 202 2 true Maandag true true 0483029380
+Joris 308 3 false Woensdag true true 0488739403

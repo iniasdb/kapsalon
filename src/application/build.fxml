@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="476.0" prefWidth="767.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
+   <children>
+      <MenuBar layoutY="-1.0" prefHeight="25.0" prefWidth="767.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <Label layoutX="56.0" layoutY="34.0" text="Afspraak details">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Pane layoutX="14.0" layoutY="72.0" prefHeight="403.0" prefWidth="219.0">
+         <children>
+            <Label text="Bewoner: " />
+            <Label fx:id="bewonerLabel" layoutX="67.0" />
+            <Label layoutY="35.0" text="Datum: " />
+            <Label fx:id="datumLabel" layoutX="67.0" layoutY="35.0" />
+            <Label layoutY="73.0" text="Uur:" />
+            <Label fx:id="uurLabel" layoutX="67.0" layoutY="73.0" />
+            <Label layoutY="113.0" text="Wat: " />
+            <Label fx:id="watLabel" layoutX="67.0" layoutY="113.0" />
+            <Label layoutY="153.0" text="Frequentie: " />
+            <Label fx:id="freqLabel" layoutX="78.0" layoutY="153.0" />
+            <Label layoutX="2.0" layoutY="185.0" text="Info: " />
+            <TextArea fx:id="infoTA" layoutX="2.0" layoutY="210.0" prefHeight="188.0" prefWidth="211.0" />
+         </children>
+      </Pane>
+      <Separator layoutX="248.0" layoutY="11.0" orientation="VERTICAL" prefHeight="471.0" prefWidth="6.0" />
+      <Label layoutX="339.0" layoutY="34.0" text="Afspraken">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="261.0" layoutY="83.0" text="Week" />
+      <ChoiceBox fx:id="weekCB" layoutX="306.0" layoutY="79.0" prefHeight="25.0" prefWidth="108.0" />
+      <ListView fx:id="afspraakLV" layoutX="261.0" layoutY="108.0" prefHeight="368.0" prefWidth="245.0" />
+      <Separator layoutX="512.0" layoutY="11.0" orientation="VERTICAL" prefHeight="471.0" prefWidth="6.0" />
+      <Label layoutX="572.0" layoutY="34.0" text="Afspraak maken">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="525.0" layoutY="83.0" text="Bewoner" />
+      <ComboBox fx:id="bewonerCB" layoutX="603.0" layoutY="79.0" prefWidth="150.0" />
+      <Label layoutX="525.0" layoutY="123.0" text="Datum" />
+      <DatePicker fx:id="dateInput" layoutX="603.0" layoutY="119.0" prefHeight="25.0" prefWidth="150.0" />
+      <CheckBox fx:id="uurCheckBox" layoutX="525.0" layoutY="163.0" mnemonicParsing="false" text="Uur" />
+      <ChoiceBox fx:id="uurCB" layoutX="603.0" layoutY="159.0" prefHeight="25.0" prefWidth="62.0" />
+      <Label layoutX="676.0" layoutY="163.0" text=":" />
+      <ChoiceBox fx:id="minCB" layoutX="690.0" layoutY="159.0" prefHeight="25.0" prefWidth="62.0" />
+      <Label layoutX="524.0" layoutY="204.0" text="Wat" />
+      <ChoiceBox fx:id="watCB" layoutX="604.0" layoutY="199.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="freqCB" layoutX="603.0" layoutY="238.0" prefHeight="25.0" prefWidth="96.0" />
+      <Label layoutX="706.0" layoutY="242.0" text="wekelijks" />
+      <Label layoutX="524.0" layoutY="242.0" text="Frequentie" />
+      <TextArea fx:id="extraInfo" layoutX="604.0" layoutY="281.0" prefHeight="136.0" prefWidth="149.0" />
+      <Label layoutX="521.0" layoutY="281.0" text="Extra info" />
+      <Button layoutX="604.0" layoutY="428.0" mnemonicParsing="false" onAction="#afspraakMaken" prefHeight="45.0" prefWidth="149.0" text="Afspraak maken" />
+      <Button layoutX="428.0" layoutY="79.0" mnemonicParsing="false" onAction="#filter" text="Filter" />
+   </children>
+</AnchorPane>

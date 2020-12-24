@@ -33,12 +33,11 @@ import javafx.stage.Stage;
 public class Controller {
 	
 	public AnchorPane pane;
-	public Label bewonerLabel, datumLabel, uurLabel, watLabel, freqLabel;
+	public Label bewonerLabel, datumLabel, uurLabel, watLabel, freqLabel, errorLabel;
 	public TextArea infoTA, extraInfo;
 	public ChoiceBox<String> weekCB, watCB;
 	public ChoiceBox<Integer> uurCB, minCB, freqCB;
 	public ComboBox<Bewoner> bewonerCB;
-	//public ChoiceBox<Bewoner> bewonerCB;
 	public ListView<Afspraak> afspraakLV;
 	public DatePicker dateInput;
 	public CheckBox uurCheckBox;
@@ -131,25 +130,6 @@ public class Controller {
 				minCB.setDisable(false);
 			}
 		});
-		
-//		weekCB.getSelectionModel().selectedItemProperty().addListener(e -> {
-//
-//			afspraakLV.getItems().clear();
-//						
-//			String weekString = weekCB.getValue();
-//			int week = Integer.valueOf(weekString.substring(weekString.length()-2).trim());
-//			
-//			for (int i = 0; i < afspraken.size(); i++) {
-//				
-//				if (Math.ceil((double)afspraken.get(i).getDate().getDayOfYear()/7) == week) {
-//					
-//					afspraakLV.getItems().add(afspraken.get(i));
-//					
-//				}
-//				
-//			}
-//			
-//		});
 		
 		export.setOnAction(e -> {
 			System.out.println("export");
@@ -317,17 +297,11 @@ public class Controller {
 	
 	public void afspraakMaken(ActionEvent e) {
 		
-		for (int i = 0; i < bewoners.size(); i++) {
-			System.out.println(bewoners.get(i));
-		}
-		
 		if (checkInput()) {
 			
 			Bewoner bewoner = bewonerCB.getValue();
 			LocalDate date = dateInput.getValue();
-			
-			System.out.println(date);
-			
+						
 			LocalTime time;
 			if (uurCB.isDisabled()) {
 				time = null;
@@ -339,12 +313,9 @@ public class Controller {
 			String wat = watCB.getValue();
 			int freq = freqCB.getValue();
 			String info;
-			System.out.println(extraInfo.getText());
 			if (extraInfo.getText().equals("")) {
-				System.out.println("ja");
 				info = "null";
 			} else {
-				System.out.println("nee");
 				info = extraInfo.getText();
 			}
 						
@@ -370,7 +341,6 @@ public class Controller {
 				
 		//add new appointments until enddate is reached
 		//LocalDate date = afspraak.getDate();
-		System.out.println(date);
 		
 		while (date.compareTo(endDate) < 0) {
 			LocalDate newDate = date.with(ta);
@@ -378,17 +348,21 @@ public class Controller {
 			afspraken.add(new Afspraak(afspraak.getBewoner(), date, afspraak.getUur(), afspraak.getWat(), afspraak.getFreq(), afspraak.getInfo()));
 
 			date = newDate;
-			System.out.println(date);
 		}
 		
 	}
 	
 	public boolean checkInput() {
+		
+		errorLabel.setText("");
+		
 		if (bewonerCB.getValue() == null) {
+			errorLabel.setText("Geen bewoner aangeduid");
 			return false;
 		}
 		
 		if (dateInput.getValue() == null) {
+			errorLabel.setText("Geen datum aangeduid");
 			return false;
 		}
 		

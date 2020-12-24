@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="476.0" prefWidth="767.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
+<AnchorPane fx:id="pane" prefHeight="495.0" prefWidth="767.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
    <children>
       <MenuBar layoutY="-1.0" prefHeight="25.0" prefWidth="767.0">
         <menus>
@@ -35,7 +35,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Pane layoutX="14.0" layoutY="72.0" prefHeight="403.0" prefWidth="219.0">
+      <Pane layoutX="14.0" layoutY="72.0" prefHeight="421.0" prefWidth="219.0">
          <children>
             <Label text="Bewoner: " />
             <Label fx:id="bewonerLabel" layoutX="67.0" />
@@ -48,10 +48,10 @@
             <Label layoutY="153.0" text="Frequentie: " />
             <Label fx:id="freqLabel" layoutX="78.0" layoutY="153.0" />
             <Label layoutX="2.0" layoutY="185.0" text="Info: " />
-            <TextArea fx:id="infoTA" layoutX="2.0" layoutY="210.0" prefHeight="188.0" prefWidth="211.0" />
+            <TextArea fx:id="infoTA" layoutX="2.0" layoutY="210.0" prefHeight="202.0" prefWidth="211.0" />
          </children>
       </Pane>
-      <Separator layoutX="248.0" layoutY="11.0" orientation="VERTICAL" prefHeight="471.0" prefWidth="6.0" />
+      <Separator layoutX="245.0" layoutY="27.0" orientation="VERTICAL" prefHeight="465.0" prefWidth="6.0" />
       <Label layoutX="339.0" layoutY="34.0" text="Afspraken">
          <font>
             <Font size="20.0" />
@@ -59,7 +59,7 @@
       </Label>
       <Label layoutX="261.0" layoutY="83.0" text="Week" />
       <ChoiceBox fx:id="weekCB" layoutX="306.0" layoutY="79.0" prefHeight="25.0" prefWidth="108.0" />
-      <ListView fx:id="afspraakLV" layoutX="261.0" layoutY="108.0" prefHeight="368.0" prefWidth="245.0">
+      <ListView fx:id="afspraakLV" layoutX="261.0" layoutY="108.0" prefHeight="378.0" prefWidth="245.0">
          <contextMenu>
             <ContextMenu fx:id="contextMenu">
               <items>
@@ -68,7 +68,7 @@
               </items>
             </ContextMenu>
          </contextMenu></ListView>
-      <Separator layoutX="512.0" layoutY="11.0" orientation="VERTICAL" prefHeight="471.0" prefWidth="6.0" />
+      <Separator layoutX="512.0" layoutY="27.0" orientation="VERTICAL" prefHeight="465.0" prefWidth="6.0" />
       <Label layoutX="572.0" layoutY="34.0" text="Afspraak maken">
          <font>
             <Font size="20.0" />
@@ -87,9 +87,10 @@
       <ChoiceBox fx:id="freqCB" layoutX="603.0" layoutY="238.0" prefHeight="25.0" prefWidth="96.0" />
       <Label layoutX="706.0" layoutY="242.0" text="wekelijks" />
       <Label layoutX="524.0" layoutY="242.0" text="Frequentie" />
-      <TextArea fx:id="extraInfo" layoutX="604.0" layoutY="281.0" prefHeight="136.0" prefWidth="149.0" />
+      <TextArea fx:id="extraInfo" layoutX="604.0" layoutY="281.0" prefHeight="131.0" prefWidth="149.0" />
       <Label layoutX="521.0" layoutY="281.0" text="Extra info" />
-      <Button layoutX="604.0" layoutY="428.0" mnemonicParsing="false" onAction="#afspraakMaken" prefHeight="45.0" prefWidth="149.0" text="Afspraak maken" />
+      <Button layoutX="604.0" layoutY="420.0" mnemonicParsing="false" onAction="#afspraakMaken" prefHeight="45.0" prefWidth="149.0" text="Afspraak maken" />
       <Button layoutX="428.0" layoutY="79.0" mnemonicParsing="false" onAction="#filter" text="Filter" />
+      <Label fx:id="errorLabel" layoutX="605.0" layoutY="473.0" prefHeight="17.0" prefWidth="149.0" textFill="RED" />
    </children>
 </AnchorPane>

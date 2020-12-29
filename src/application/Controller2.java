@@ -3,11 +3,15 @@ package application;
 import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.input.ContextMenuEvent;
 
 public class Controller2 {
 	
@@ -15,6 +19,8 @@ public class Controller2 {
 	public CheckBox badCB, ophalenCB, flatCB;
 	public ChoiceBox<String> badDagCB;
 	public ListView<Bewoner> bewonerLV;
+	public ContextMenu cm;
+	public MenuItem delete;
 
 	String[] dagen = {"Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag", "Zondag"};
 	
@@ -53,6 +59,20 @@ public class Controller2 {
 		for (int i = 0; i < 7; i++) {
 			badDagCB.getItems().add(dagen[i]);
 		}
+		
+        bewonerLV.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+       	 
+            @Override
+            public void handle(ContextMenuEvent event) {
+ 
+                cm.show(bewonerLV, event.getScreenX(), event.getScreenY());
+            }
+        });
+        
+        delete.setOnAction(e -> {
+			Bewoner toDelete = bewonerLV.getSelectionModel().getSelectedItem();
+			bewoners.remove(toDelete);
+        });
 
 	}
 	

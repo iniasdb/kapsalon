@@ -132,7 +132,15 @@ public class Controller {
 		});
 		
 		export.setOnAction(e -> {
-			System.out.println("export");
+			try {
+				Parent root = FXMLLoader.load(getClass().getResource("excel.fxml"));
+				Stage stage = new Stage();
+				stage.setScene(new Scene(root));
+				stage.setTitle("Exporteren");
+				stage.show();				
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		});
 		
 		createBewoner.setOnAction(e -> {
